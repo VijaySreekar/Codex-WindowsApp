@@ -1,19 +1,18 @@
 @echo off
 setlocal
 
-set SCRIPT=%~dp0scripts\run.ps1
+set "SCRIPT=%~dp0scripts\run.ps1"
+set "PS_EXE=%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe"
+
 if not exist "%SCRIPT%" (
   echo Missing %SCRIPT%
   exit /b 1
 )
 
-if "%~1"=="" (
-  echo Usage:
-  echo   run.cmd
-  echo   run.cmd -DmgPath .\Codex.dmg
-  echo Optional:
-  echo   -WorkDir .\work  -CodexCliPath C:\path\to\codex.exe  -Reuse
-  exit /b 0
+if not exist "%PS_EXE%" (
+  echo Missing %PS_EXE%
+  exit /b 1
 )
 
-powershell -NoProfile -ExecutionPolicy Bypass -File "%SCRIPT%" %*
+"%PS_EXE%" -NoProfile -ExecutionPolicy Bypass -File "%SCRIPT%" %*
+exit /b %ERRORLEVEL%

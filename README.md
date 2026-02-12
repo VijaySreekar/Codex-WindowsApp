@@ -29,6 +29,18 @@ Or use the shortcut launcher:
 run.cmd
 ```
 
+## Account Switching (In App)
+- The launcher now injects an in-app **Accounts** switcher (top-right in Codex).
+- It uses the same homes as `codex-accounts` by default: `%USERPROFILE%\.codex-accounts\<account>`.
+- Switching relaunches Codex with `CODEX_HOME` set to that account home and separate Electron data folders under it.
+- On switch, it also syncs shared config from `%USERPROFILE%\.codex` (`config.toml` + `rules/`) into that account home, so MCP/rules updates follow your active account.
+
+### Optional account flags
+- `-Account <name>`: Start directly in a specific account profile.
+- `-AccountsRoot <path>`: Override account homes root (default: `%USERPROFILE%\.codex-accounts`).
+- `-SourceHome <path>`: Override shared source for config/rules sync (default: `%USERPROFILE%\.codex`).
+- `-ListAccounts`: Print discovered accounts and exit.
+
 The script will:
 - Extract the DMG to `work/`
 - Build a Windows-ready app directory
